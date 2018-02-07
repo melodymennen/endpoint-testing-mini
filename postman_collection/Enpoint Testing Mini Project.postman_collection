@@ -1,0 +1,445 @@
+{
+	"info": {
+		"name": "Enpoint Testing Mini Project",
+		"_postman_id": "b726d394-6b29-1e73-0d4b-c576090bbd01",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - All Students",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd222bf5-26bc-4d47-b493-05124b32fef5",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response length is 20\", () => {",
+							"    pm.expect(response.length).to.equal(20);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/students",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Student By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1841893-6b2a-454f-b796-9c96ac969763",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Correct object in response for ID 9\", function () {",
+							"    pm.expect(response[0].id).to.eql(9);",
+							"    pm.expect(response[0].student).to.eql(\"Patsy Daunay\");",
+							"    pm.expect(response[0].email_address).to.eql(\"pdaunay8@about.com\");",
+							"    pm.expect(response[0].phone).to.eql(\"(806) 2654555\");",
+							"    pm.expect(response[0].current_grade).to.eql(\"A\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/students/9",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Students By Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35da257b-f2d4-458a-b57e-686dfe042a4d",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Abey Laynard student object in response', function () {",
+							"    pm.expect(response).that.deep.includes({",
+							"        \"id\": 1,",
+							"        \"student\": \"Abey Laynard\",",
+							"        \"email_address\": \"alaycock0@nsw.gov.au\",",
+							"        \"phone\": \"(608) 8366901\",",
+							"        \"current_grade\": \"A\"",
+							"    });",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/students?name=la",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "la",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Students By Grade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0777a0fe-e826-4ec3-a9c2-074b912ca443",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Correct students returned for \"C\" grade', function () {",
+							"    var students = 0;",
+							"    response.filter(student => {",
+							"        if (student.current_grade === \"C\") {",
+							"            students++",
+							"        }",
+							"    })",
+							"    pm.expect(response.length).to.equal(students);",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/students?grade=c",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students"
+					],
+					"query": [
+						{
+							"key": "grade",
+							"value": "c",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Students By Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32d2f828-bfcb-4b1e-9ddf-471871eb1a5d",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Gilbert's student object in repsonse\", function (){",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].student).to.eql(\"Gilbert De Gouy\");",
+							"    pm.expect(response[0].email_address).to.eql(\"gdee@clickbank.net\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/students?email=gdee@clickbank.net",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "gdee@clickbank.net",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Students By Phone",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f132983-be88-4a0d-a0eb-fe9f4ed398b4",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"All objects contain '608'\", function() {",
+							"  let contains608 = true;",
+							"  response.map( obj => {",
+							"    if (!obj.phone.includes('608')) {",
+							"        contains608 = false;",
+							"    }",
+							"  });",
+							"  pm.expect(contains608).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/students?phone=608",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students"
+					],
+					"query": [
+						{
+							"key": "phone",
+							"value": "608",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Update Grade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "269963b7-f467-429c-bff7-cf06ff5aae53",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Grade should have been updated to \"A-\" for user 15', function() {",
+							"  pm.expect(response[0].current_grade).to.eql(\"A-\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"current_grade\": \"A-\"\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/students/15",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Add Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49a614a0-4e00-44a5-bf66-3b3c6152b443",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Tim Allen added as student', function () {",
+							"    pm.expect(response[0].id).to.eql(21);",
+							"    pm.expect(response[0].student).to.eql(\"Tim Allen\");",
+							"    pm.expect(response[0].email_address).to.eql(\"tim@homeimprovement.com\");",
+							"    pm.expect(response[0].phone).to.eql(\"(408) 8674530\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"student\": \"Tim Allen\",\n    \"email_address\": \"tim@homeimprovement.com\",\n    \"phone\": \"(408) 8674530\",\n    \"current_grade\": \"B+\"\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/students",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE - Remove Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1fb16229-e1f2-43ae-a366-95f7a42683ad",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Student w/ ID 18 removed', function() {",
+							"  pm.expect(response[0].id).to.eql(18);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/students/18",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"students",
+						"18"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
